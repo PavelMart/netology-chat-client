@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.Socket;
+import java.util.Date;
 
 public class Client {
     private String ADDRESS;
@@ -7,7 +8,7 @@ public class Client {
 
     public Client(String settingsPath) {
         try (
-                BufferedReader settingsReader = new BufferedReader(new FileReader(settingsPath));
+                BufferedReader settingsReader = new BufferedReader(new FileReader(settingsPath))
 
         ) {
             ADDRESS = settingsReader.readLine();
@@ -22,7 +23,7 @@ public class Client {
                 Socket socket = new Socket(ADDRESS, PORT);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true)
         ) {
             System.out.println("Введите ваше имя:");
             String username = reader.readLine();
@@ -59,7 +60,7 @@ public class Client {
             try {
                 String serverMessage;
                 while ((serverMessage = in.readLine()) != null) {
-                    System.out.println(serverMessage);
+                    System.out.println("[" + new Date() + "] " + serverMessage);
                     Logger.log(serverMessage);
                 }
             } catch (IOException e) {
